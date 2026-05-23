@@ -1,10 +1,48 @@
+# Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# Virtual environments
 .venv/
 venv/
-data/
+env/
+ENV/
+
+# Jupyter
 .ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data (tracked by DVC)
+data/
+
+# IDE
 .vscode/
 .idea/
-env/
 *.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# DVC internal (committed, not ignored)
+# .dvc/cache is excluded automatically by DVC
+.dvc/tmp/
+.dvc/plots/
