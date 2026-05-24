@@ -14,22 +14,30 @@ ACIS is preparing for aggressive growth in the SA auto-insurance market. This pr
 
 ```
 insurance-risk-analytics/
-├── .github/workflows/ci.yml   # GitHub Actions CI (lint + test on every push)
-├── data/                      # Tracked by DVC — not committed to Git
+├── .github/workflows/ci.yml        # GitHub Actions CI (lint + test on every push)
+├── .dvc/                           # DVC internals (committed to Git)
+│   └── config                      # DVC remote storage configuration
+├── data/                           # DVC-managed — actual files NOT committed to Git
+│   ├── .gitignore                  # Auto-managed by DVC (excludes raw files)
+│   ├── MachineLearningRating_v3.txt.dvc   # DVC pointer for raw dataset
+│   └── processed/
+│       └── insurance_cleaned.csv   # Output of `prepare` stage (DVC-tracked via dvc.lock)
 ├── notebooks/
-│   ├── 01_eda.ipynb           # Exploratory Data Analysis (Task 1)
-│   ├── 02_hypothesis_testing.ipynb  # A/B hypothesis tests (Task 3)
-│   └── 03_modeling.ipynb      # Predictive modelling (Task 4)
+│   ├── 01_eda.ipynb                # Exploratory Data Analysis (Task 1)
+│   ├── 02_hypothesis_testing.ipynb # A/B hypothesis tests (Task 3)
+│   └── 03_modeling.ipynb           # Predictive modelling (Task 4)
 ├── src/
-│   ├── data_loader.py         # DataLoader class — load, validate, enrich
-│   ├── eda_utils.py           # EDA helper functions and plots
-│   ├── hypothesis_tests.py    # Statistical test utilities (Task 3)
-│   └── modeling.py            # Model training and evaluation (Task 4)
+│   ├── data_loader.py              # DataLoader class — load, validate, enrich
+│   ├── eda_utils.py                # EDA helper functions and plots
+│   ├── prepare_data.py             # DVC prepare stage: raw → cleaned CSV
+│   ├── validate_data.py            # DVC validate stage: quality assertions
+│   ├── hypothesis_tests.py         # Statistical test utilities (Task 3)
+│   └── modeling.py                 # Model training and evaluation (Task 4)
 ├── reports/
-│   └── final_report.md        # Medium-style business report
-├── tests/                     # pytest test suite
-├── .dvc/                      # DVC config (committed)
-├── dvc.yaml                   # DVC pipeline stages
+│   └── final_report.md             # Medium-style business report
+├── tests/                          # pytest test suite
+├── dvc.lock                        # DVC pipeline run cache (committed)
+├── dvc.yaml                        # DVC pipeline stage definitions
 ├── requirements.txt
 └── README.md
 ```
@@ -61,7 +69,14 @@ pip install -r requirements.txt
 dvc pull
 ```
 
-This downloads the raw data to `data/` from the configured remote storage. See Task 2 for DVC setup details.
+This downloads both the raw dataset (`data/MachineLearningRating_v3.txt`) and the
+processed output (`data/processed/insurance_cleaned.csv`) from the configured DVC remote.
+
+To reproduce the full pipeline from scratch (raw → cleaned → validated):
+
+```bash
+dvc repro
+```
 
 ### 3. Run tests
 

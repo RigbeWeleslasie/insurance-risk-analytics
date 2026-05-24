@@ -1,0 +1,5 @@
+# DVC-managed data directory
+# Actual data files are stored in DVC remote and must not be committed to Git.
+# Only .dvc pointer files and this .gitignore are tracked by Git.
+/MachineLearningRating_v3.txt
+/processed/insurance_cleaned.csv

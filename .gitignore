@@ -19,8 +19,12 @@ ENV/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data (tracked by DVC)
-data/
+# Data — actual files tracked by DVC, not Git
+# DVC auto-generates data/.gitignore to exclude raw files;
+# .dvc pointer files and data/.gitignore are committed to Git.
+/data/**
+!/data/**/.gitignore
+!/data/**/*.dvc
 
 # IDE
 .vscode/
@@ -42,7 +46,7 @@ Thumbs.db
 htmlcov/
 .pytest_cache/
 
-# DVC internal (committed, not ignored)
-# .dvc/cache is excluded automatically by DVC
+# DVC internals — cache and local remote not committed
 .dvc/tmp/
 .dvc/plots/
+.dvc-remote/

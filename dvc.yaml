@@ -1,11 +1,15 @@
 stages:
-  # Task 2 will populate these stages once DVC is initialized.
-  # Example structure (uncomment and adapt after `dvc init`):
-  #
-  # prepare:
-  #   cmd: python src/data_loader.py
-  #   deps:
-  #     - data/MachineLearningRating_v3.txt
-  #     - src/data_loader.py
-  #   outs:
-  #     - data/insurance_cleaned.csv
+  prepare:
+    cmd: python src/prepare_data.py
+    deps:
+      - data/MachineLearningRating_v3.txt
+      - src/data_loader.py
+      - src/prepare_data.py
+    outs:
+      - data/processed/insurance_cleaned.csv
+
+  validate:
+    cmd: python src/validate_data.py
+    deps:
+      - data/processed/insurance_cleaned.csv
+      - src/validate_data.py

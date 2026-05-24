@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare_data.py
+    deps:
+    - path: data/MachineLearningRating_v3.txt
+      hash: md5
+      md5: 3e817eb4b5cb25490523e5a7df631ad1
+      size: 4497
+    - path: src/data_loader.py
+      hash: md5
+      md5: 8ff4065ff4d00096ee3d2aa87af2ed6f
+      size: 3363
+    - path: src/prepare_data.py
+      hash: md5
+      md5: 95ae291b228272e1a1fe20e2b987e240
+      size: 1050
+    outs:
+    - path: data/processed/insurance_cleaned.csv
+      hash: md5
+      md5: 07e9f4cf83fd9006264b2dbf10180220
+      size: 1584
