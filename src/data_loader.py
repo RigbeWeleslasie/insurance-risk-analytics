@@ -35,8 +35,6 @@ DATETIME_COLS = ("TransactionMonth", "VehicleIntroDate")
 
 # Columns that must be positive for derived metrics to be meaningful
 CORE_NUMERIC_COLS = {"TotalPremium", "TotalClaims"}
-
-
 class DataLoader:
     """Load, validate, and enrich the ACIS auto-insurance dataset.
 

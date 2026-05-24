@@ -20,11 +20,15 @@ ENV/
 *.ipynb_checkpoints
 
 # Data — actual files tracked by DVC, not Git
-# DVC auto-generates data/.gitignore to exclude raw files;
-# .dvc pointer files and data/.gitignore are committed to Git.
-/data/**
-!/data/**/.gitignore
-!/data/**/*.dvc
+# .dvc pointer files and subdirectory .gitignore files are committed to Git.
+# Negation must un-ignore directories before un-ignoring files within them.
+/data/*
+!/data/*.dvc
+!/data/.gitignore
+!/data/processed/
+/data/processed/*
+!/data/processed/*.dvc
+!/data/processed/.gitignore
 
 # IDE
 .vscode/
